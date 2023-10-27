@@ -8,6 +8,7 @@
 
 ```bash
 cd location_to_project_folder
+nvm use
 npm install
 npm run dev  # Start the development server with nodemon
 npm start    # Start the server
