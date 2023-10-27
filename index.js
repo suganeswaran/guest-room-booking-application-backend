@@ -1,12 +1,13 @@
 const express = require("express");
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
+const router = require("./Routes");
+require("./db.conection");
 
 const app = express();
 
-app.get('/ping', (req, res) => {
-    res.send('Pong');
-});
+app.use(express.json({ limit: "10kb" }));
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+app.use("/", router);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
