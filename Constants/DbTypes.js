@@ -1,4 +1,11 @@
-export const UserTypes = ["Standard", "Staff", "Admin", "SuperAdmin"];
-export const HotelTypes = ["Resort", "Hotel", "Motel", "Lodge"];
-export const RoomTypes = ["Standard", "Double", "Twin"];
-export const BookingStatusTypes = ["Booked", "Pending"];
+const UserTypes = ["Standard", "Staff", "Admin", "SuperAdmin"];
+const HotelTypes = ["Resort", "Hotel", "Motel", "Lodge"];
+const RoomTypes = ["Standard", "Double", "Twin"];
+const BookingStatusTypes = ["Booked", "Pending"];
+
+module.exports = {
+    UserTypes,
+    HotelTypes,
+    RoomTypes,
+    BookingStatusTypes
+}
