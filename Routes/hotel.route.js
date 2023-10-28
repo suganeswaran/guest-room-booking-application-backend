@@ -7,6 +7,7 @@ const {
   createHotel,
   addOwner,
   removeOwner,
+  createRooms,
 } = require("../Controller/hotel.controller");
 const hotelRouter = express.Router();
 
@@ -17,6 +18,12 @@ hotelRouter.post(
   authenticateUser,
   checkPermissions,
   removeOwner
+);
+hotelRouter.post(
+  "/create-rooms",
+  authenticateUser,
+  checkPermissions,
+  createRooms
 );
 
 module.exports = hotelRouter;

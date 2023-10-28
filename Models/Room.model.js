@@ -23,7 +23,7 @@ const roomSchema = new mongoose.Schema(
     },
     availability: {
       type: Boolean,
-      required: true,
+      default: true,
     },
     pricePerDay: {
       type: Number,

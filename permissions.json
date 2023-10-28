@@ -4,5 +4,6 @@
   "/locality/create": ["SuperAdmin"],
   "/hotel/add-owner": ["SuperAdmin"],
   "/hotel/remove-owner": ["SuperAdmin"],
-  "/user/all": ["SuperAdmin"]
+  "/user/all": ["SuperAdmin"],
+  "/hotel/create-rooms": ["SuperAdmin"]
 }

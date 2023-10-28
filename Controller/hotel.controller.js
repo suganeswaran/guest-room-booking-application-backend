@@ -1,5 +1,6 @@
 const Hotel = require("../Models/Hotel.model");
 const UserHotel = require("../Models/UserHotel.model");
+const Room = require("../Models/Room.model");
 const { errorHelper } = require("../Utils/errorHelper");
 
 exports.createHotel = async (req, res) => {
@@ -11,6 +12,25 @@ exports.createHotel = async (req, res) => {
     res.status(200).json(createdHotel);
   } catch (error) {
     errorHelper(res, 500, error, "Hotel creation error");
+  }
+};
+
+exports.createRooms = async (req, res) => {
+  try {
+    const { roomsData, hotelId } = req.body;
+
+    // adding hotel_id to all data
+    const updatedRoomsData = roomsData.map((room) => {
+      return {
+        ...room,
+        hotelId,
+      };
+    });
+    const createdRooms = await Room.insertMany(updatedRoomsData);
+    res.status(200).json(createdRooms);
+  } catch (error) {
+    console.log(error);
+    errorHelper(res, 500, error, "Room creation error");
   }
 };
 
