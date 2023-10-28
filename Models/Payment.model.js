@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { PaymentTypes } = require("../Constants/DbTypes");
 
 const paymentSchema = new mongoose.Schema(
   {
@@ -13,6 +14,7 @@ const paymentSchema = new mongoose.Schema(
     },
     paymentMethod: {
       type: String,
+      enum: PaymentTypes,
       required: true,
     },
   },
