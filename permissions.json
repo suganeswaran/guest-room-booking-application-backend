@@ -1,5 +1,7 @@
 {
   "/convert-staff": ["SuperAdmin"],
   "/hotel/create": ["SuperAdmin"],
-  "/locality/create": ["SuperAdmin"]
+  "/locality/create": ["SuperAdmin"],
+  "/hotel/add-owner": ["SuperAdmin"],
+  "/hotel/remove-owner": ["SuperAdmin"]
 }

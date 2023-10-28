@@ -2,15 +2,19 @@ const mongoose = require("mongoose");
 
 const userHotelSchema = new mongoose.Schema(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    hotel: {
+    hotelId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Hotel",
       required: true,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }
