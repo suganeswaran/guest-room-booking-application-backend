@@ -17,7 +17,7 @@ exports.authenticateUser = async (req, res, next) => {
       const user = await User.findById(decoded.id);
 
       // map users for future use
-      req.user = user;
+      req.user = user._doc;
     } catch (err) {
       return errorHelper(res, 401, null, "Unauthorized");
     }
