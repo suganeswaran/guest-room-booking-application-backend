@@ -1,0 +1,5 @@
+{
+  "/convert-staff": ["SuperAdmin"],
+  "/hotel/create": ["SuperAdmin"],
+  "/locality/create": ["SuperAdmin"]
+}

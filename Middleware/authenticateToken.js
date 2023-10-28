@@ -27,3 +27,21 @@ exports.authenticateUser = async (req, res, next) => {
     errorHelper(res, 500, error, "Authentication error");
   }
 };
+
+exports.checkPermissions = async (req, res, next) => {
+  try {
+    const url = req.originalUrl;
+    const permissions = require("../permissions.json");
+    const role = req.user.role;
+
+    const canAccess = permissions[url].includes(role);
+
+    if (!canAccess) {
+      return errorHelper(res, 500, null, "Permission error");
+    }
+
+    next();
+  } catch (error) {
+    errorHelper(res, 500, error, "Permission error");
+  }
+};
