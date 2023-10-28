@@ -4,7 +4,7 @@ const State = require("../Models/State.model");
 const City = require("../Models/City.model");
 const Locality = require("../Models/Locality.model");
 const { errorHelper } = require("../Utils/errorHelper");
-const { uniq } = require("lodash");
+const { uniq, includes } = require("lodash");
 
 exports.createLocality = async (req, res) => {
   const session = await mongoose.startSession();
@@ -60,5 +60,27 @@ exports.createLocality = async (req, res) => {
     await session.abortTransaction();
     session.endSession();
     errorHelper(res, 500, error, "Locality creation error");
+  }
+};
+
+exports.getLocalities = async (req, res) => {
+  try {
+    const localities = await Locality.find({})
+      .populate({
+        path: "city",
+        select: "name",
+        populate: {
+          path: "state",
+          select: "name",
+          populate: {
+            path: "country",
+            select: ["name", "isoCode"],
+          },
+        },
+      })
+      .exec();
+    res.status(200).json(localities);
+  } catch (error) {
+    errorHelper(res, 500, error, "Getting locality error");
   }
 };
