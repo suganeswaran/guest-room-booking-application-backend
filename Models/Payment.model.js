@@ -17,6 +17,10 @@ const paymentSchema = new mongoose.Schema(
       enum: PaymentTypes,
       required: true,
     },
+    status: {
+      type: String,
+      default: "pending",
+    },
   },
   { timestamps: true }
 );

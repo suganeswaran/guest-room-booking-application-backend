@@ -41,9 +41,31 @@ exports.createBooking = async (req, res) => {
       totalCost,
       paymentMethod
     );
-    res.status(200).json({ bookedData, paymentId });
+    res.status(200).json({ bookedData, payment: { paymentId, totalCost } });
   } catch (error) {
     console.log(error);
     errorHelper(res, 500, error, "Booking error");
+  }
+};
+
+exports.makePayment = async (req, res) => {
+  try {
+    const { paymentId, totalCost, status } = req.body;
+    const currentPayment = await Payment.findById(paymentId);
+    const { paymentAmount, bookingId } = currentPayment.toObject();
+    const currentBooking = await Booking.findById(bookingId);
+    const { roomId } = currentBooking.toObject();
+    if (paymentAmount === totalCost && status === "Success") {
+      await Payment.updateOne({ _id: paymentId }, { status });
+      await Booking.updateOne({ _id: bookingId }, { status: "Booked" });
+      await Room.updateOne({ _id: roomId }, { availability: false });
+      return res.status(200).json({
+        message: `Successfully Booked BookingId: ${bookingId}`,
+      });
+    }
+    errorHelper(res, 400, null, "Payment error");
+  } catch (error) {
+    console.log(error);
+    errorHelper(res, 500, error, "Payment error");
   }
 };
