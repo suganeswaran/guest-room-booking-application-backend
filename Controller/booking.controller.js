@@ -69,3 +69,25 @@ exports.makePayment = async (req, res) => {
     errorHelper(res, 500, error, "Payment error");
   }
 };
+
+exports.checkout = async (req, res) => {
+  try {
+    const { bookingId } = req.body;
+
+    const currentBooking = await Booking.findById(bookingId);
+    const { roomId } = currentBooking.toObject();
+    const NOW = Date.now();
+
+    await Booking.updateOne(
+      { _id: bookingId },
+      { checkOutTime: NOW }
+    );
+    await Room.updateOne({ _id: roomId }, { availability: true });
+    res.status(200).json({
+      message: "Successfully Checked out",
+    });
+  } catch (error) {
+    console.log(error);
+    errorHelper(res, 500, error, "Checkout error");
+  }
+};
