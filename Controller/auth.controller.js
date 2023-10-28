@@ -52,12 +52,24 @@ exports.login = async (req, res) => {
       httpOnly: true,
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     };
-    res.setHeader(
-      "Set-Cookie",
-      cookie.serialize("jwtToken", token, cookieOptions)
-    );
+    res.cookie("jwtToken", token, cookieOptions);
     res.status(200).json({ token: token });
   } catch (error) {
     errorHelper(res, 500, error, "Login error");
+  }
+};
+
+exports.logout = (req, res) => {
+  try {
+    const cookieOptions = {
+      httpOnly: true,
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    };
+    res.clearCookie("jwtToken", cookieOptions);
+    res.status(200).json({
+      message: "Logged out successfully.",
+    });
+  } catch (error) {
+    errorHelper(req, 500, error, "Logout error");
   }
 };
