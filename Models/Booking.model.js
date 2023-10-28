@@ -3,12 +3,12 @@ const { BookingStatusTypes } = require("../Constants/DbTypes");
 
 const bookingSchema = new mongoose.Schema(
   {
-    user_id: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    room_id: {
+    roomId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Room",
       required: true,
@@ -16,7 +16,7 @@ const bookingSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: BookingStatusTypes,
-      required: true,
+      default: "Pending",
     },
     checkInTime: {
       type: Date,
@@ -24,9 +24,16 @@ const bookingSchema = new mongoose.Schema(
     },
     checkOutTime: {
       type: Date,
-      required: true,
     },
     guestCount: {
+      type: Number,
+      required: true,
+    },
+    daysCount: {
+      type: Number,
+      default: 1,
+    },
+    totalCost: {
       type: Number,
       required: true,
     },

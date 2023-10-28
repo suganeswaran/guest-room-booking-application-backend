@@ -4,6 +4,7 @@ const userRouter = require("./user.route");
 const { authenticateUser } = require("../Middleware/authenticateToken");
 const localityRouter = require("./locality.route");
 const hotelRouter = require("./hotel.route");
+const bookingRouter = require("./booking.route");
 const router = express.Router();
 
 router.get("/ping", (req, res) => {
@@ -18,5 +19,6 @@ router.use("/auth", authRouter);
 router.use("/user", userRouter);
 router.use("/locality", localityRouter);
 router.use("/hotel", hotelRouter);
+router.use("/booking", bookingRouter);
 
 module.exports = router;
